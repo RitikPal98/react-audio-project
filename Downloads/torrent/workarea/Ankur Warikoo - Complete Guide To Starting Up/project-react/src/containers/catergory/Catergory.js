@@ -96,30 +96,24 @@ export default function Home() {
 
     function handleFavorite(){
         // present?setPresent(false):setPresent(true);
-        audioList.map((item)=>{
+        console.log("this is the category data***********:",categoryDetails)
             dispatch(
                 changeFav({
-                  name: item.name,
-                  link: item.link,
-                  id: item.id,
-                  image: item.image,
-                  categoryId: item.categoryId,
-                  currentPlayingPosition: item.currentPlayingPosition,
+                  name: categoryDetails.name,
+                  link: "category-link",
+                  id: categoryDetails.id,
+                  image: categoryDetails.image,
+                  categoryId: categoryDetails.id,
                 })
-              );
-        })
+        )
     }
     useEffect(() => {
 
-            audioList.forEach((audio)=>{
-               if(favorite.find((item)=>item.id===audio.id)){
-                setPresent(true); 
-                return
-               }
-               else {
-                   setPresent(false);
-                }
-            })
+        if (favorite.find((item) => item.id === categoryDetails?.id)) {
+            setPresent(true);
+          } else {
+            setPresent(false);
+          }
       }, [audioList, favorite,categoryDetails]);
 
     return (

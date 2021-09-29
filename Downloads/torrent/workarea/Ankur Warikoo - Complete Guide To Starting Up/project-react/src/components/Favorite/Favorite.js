@@ -7,6 +7,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import { changeURL } from "../../store/slices/playerSlice";
 import { changeFav } from "../../store/slices/playerSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -40,7 +41,7 @@ function Favorite() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { favorite } = useSelector((state) => state.player);
-
+  const history = useHistory();
   const handlePlay = (name, link, id, image, categoryId) => {
     dispatch(changeURL({ name, link, id, image, categoryId,currentPlayingPosition: "home" }));
 };
@@ -69,13 +70,20 @@ function Favorite() {
           <Image src={item.image} className={classes.image} />
 
           <Box
-            onClick={() => handlePlay(item.name, item.link, item.id, item.image, item.categoryId)}
+            onClick={() => {
+              if(item.link!=="category-link"){
+                return handlePlay(item.name, item.link, item.id, item.image, item.categoryId)
+                }}}
             className="fav-name-container"
             marginLeft={2}
             fontWeight="fontWeightMedium"
             fontSize="body2.fontSize"
           >
-            {item.name}
+            
+     <p onClick={()=>{
+       if(item.link==="category-link"){history.push("/category/"+item.id)}
+     }}>       {item.name}</p>
+         
           </Box>
           <IconButton onClick={()=>handleFavorite(item.name, item.link, item.id, item.image, item.categoryId)} className="fav-icon-container" size="small">
             <FavoriteBorderIcon />
