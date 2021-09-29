@@ -119,7 +119,7 @@ export default function Home() {
             <RecentlyPlayed />
           <Grid item xs={12} md={12}>
             <Box className={classes.title} mb={3} fontSize="h4.fontSize" fontWeight="fontWeightBold">
-              Favorite
+              Favorites
             </Box>
             <Favorite />
             </Grid>

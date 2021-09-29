@@ -4,13 +4,16 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Box, Container, useMediaQuery, useTheme } from "@material-ui/core";
 import { Image, ListItem } from "../../components";
-import { useSelector } from "react-redux";
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import Pagination from "@material-ui/lab/Pagination";
 import { useData } from "../../hooks/useData";
 import { useParams } from "react-router-dom";
 import { getCategoryById } from "../../db/services";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import {IconButton} from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import { changeFav } from "../../store/slices/playerSlice";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -85,6 +88,40 @@ export default function Home() {
         });
     }, [currentPage]);
 
+
+
+    const dispatch = useDispatch();
+    const { favorite } = useSelector((state) => state.player);
+    const [present, setPresent] = useState(false);
+
+    function handleFavorite(){
+        // present?setPresent(false):setPresent(true);
+        audioList.map((item)=>{
+            dispatch(
+                changeFav({
+                  name: item.name,
+                  link: item.link,
+                  id: item.id,
+                  image: item.image,
+                  categoryId: item.categoryId,
+                  currentPlayingPosition: item.currentPlayingPosition,
+                })
+              );
+        })
+    }
+    useEffect(() => {
+
+            audioList.forEach((audio)=>{
+               if(favorite.find((item)=>item.id===audio.id)){
+                setPresent(true); 
+                return
+               }
+               else {
+                   setPresent(false);
+                }
+            })
+      }, [audioList, favorite,categoryDetails]);
+
     return (
         <div style={playing ? { paddingBottom: 150 } : { paddingBottom: 50 }} className={classes.root}>
             <Container maxWidth="md">
@@ -101,6 +138,13 @@ export default function Home() {
                             >
                                 {categoryDetails?.name}
                             </Box>
+                            <IconButton onClick={handleFavorite}  size="small">
+                            <FavoriteBorderIcon
+              style={
+                present ? { color: "rgb(240,100,100)" } : { color: "#777" }
+              }
+            />
+          </IconButton>
                         </Paper>
                     </Grid>
                     <Grid item xs={12} md={8}>
