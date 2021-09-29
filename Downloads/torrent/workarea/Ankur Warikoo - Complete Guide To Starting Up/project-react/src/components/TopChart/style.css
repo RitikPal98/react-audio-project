@@ -1,0 +1,12 @@
+.swiper-slide {
+    width: auto;
+    scroll-behavior: smooth;
+    transition: ease;
+}
+
+.swiper-container {
+    z-index: 0;
+}
+
+
+

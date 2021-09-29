@@ -1,0 +1,31 @@
+on:
+  push:
+    paths:
+      - 'src/service-worker.js'
+jobs:
+  update_category_stracture:
+    runs-on: ubuntu-latest
+    name: Download Category
+    steps:
+      # To use this repository's private action,
+      # you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Downloader
+        uses: ./ # Uses an action in the root directory
+        id: downaloder
+
+      - name: Update catergory-strcture json
+        uses: "finnp/create-file-action@master"
+        env:
+          FILE_NAME: "src/data/category-strcture.json"
+          FILE_DATA: "${{ steps.downaloder.outputs.catergoryStrcture }}"
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_name: islamwell
+          author_email: it@nrq.no
+          message: 'download latest categories'
+          add: './src/data/category-strcture.json"'

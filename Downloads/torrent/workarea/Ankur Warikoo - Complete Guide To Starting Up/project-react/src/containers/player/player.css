@@ -1,0 +1,34 @@
+.rhap_progress-indicator {
+    background: white;
+}
+.rhap_main-controls-button {
+    color: white;
+}
+
+.rhap_volume-button {
+    color: white;
+}
+
+.rhap_time {
+    color: white;
+}
+
+.rhap_progress-bar-show-download {
+    background-color: white;
+}
+
+.rhap_progress-filled {
+    background-color: gainsboro;
+}
+
+.rhap_volume-indicator {
+    background: white;
+}
+
+.rhap_volume-bar {
+    background: white;
+}
+
+.rhap_repeat-button {
+    color: white;
+}

@@ -1,0 +1,104 @@
+.favorite-container{
+    background-color: white;
+    min-width: 200px;
+    min-height: 80px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow-y: scroll;
+    padding: 10px;
+    max-height: 400px;
+}
+.fav-name-container{
+flex: 1;
+}
+.fav-icon-container>*{
+    color: rgb(240,100,100);
+}
+.share-btn{
+    display: flex;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: 400ms ease-in-out;
+}
+.share-btn > a {
+    border: 1px solid white;
+    border-radius: 100%;
+    font-family: Verdana, Arial;
+    text-decoration: none;
+    padding: 2px 4px;
+    color: #777;
+    transition: 350ms ease;
+    margin: 0 1px;
+}
+.share-btn>*>*{
+    font-size: 1.5rem !important;
+}
+
+
+.share-btn > .btn-twitter{
+    background-color:rgb(29,161,245);
+    color: white;
+}
+.share-btn > .btn-twitter:hover {
+    cursor: pointer;
+    color: rgb(29,161,245);
+    background: white;
+}
+
+.share-btn > .btn-facebook{
+    color: white;
+    background:rgb(66,103,178);
+}
+.share-btn > .btn-facebook:hover {
+    cursor: pointer;
+    color: rgb(66,103,178);
+    background: white;
+}
+
+.share-btn > .btn-whatsapp{
+    background: rgb(18,140,126);
+    color: white;
+}
+.share-btn > .btn-whatsapp:hover {
+    cursor: pointer;
+    color: rgb(18,140,126);
+    background: white;
+}
+
+.share-btn > .btn-email{
+    background: rgb(66,100,170);
+    color: white;
+}
+.share-btn > .btn-email:hover {
+    cursor: pointer;
+    color:rgb(66,100,170);
+    background: white
+    ;
+}
+.download-icon-container>*{
+    color: #777 !important; 
+    font-size: 1.2rem;
+    padding: 0;
+    margin: 0 0 -5px 0;
+}
+.download-icon-container>*:hover{
+    color: rgb(18,140,126) !important;
+}
+
+.download-icon-container{
+    text-decoration: none;
+    padding: 0;
+}
+
+
+
+
+@media (max-width:400px) {
+    .share-btn>*>*{
+        font-size: 1.1rem !important;
+    }
+.share-btn > a {
+    padding: 0.4px 1px;
+    display: flex;
+}   
+}

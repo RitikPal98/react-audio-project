@@ -1,0 +1,10 @@
+name: 'Get categories'
+description: 'Download all categories'
+
+outputs:
+  catergoryStrcture: # id of output
+    description: 'downloaded catergoryStrcture'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+
