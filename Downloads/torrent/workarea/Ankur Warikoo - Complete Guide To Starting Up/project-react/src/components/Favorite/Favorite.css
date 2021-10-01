@@ -31,7 +31,7 @@ flex: 1;
     margin: 0 1px;
 }
 .share-btn>*>*{
-    font-size: 1.5rem !important;
+    /* font-size: 1.5rem !important; */
 }
 
 
@@ -95,10 +95,29 @@ flex: 1;
 
 @media (max-width:400px) {
     .share-btn>*>*{
-        font-size: 1.1rem !important;
+        font-size: 1.19rem !important;
     }
+.share-btn{
+    transform: translateX(-5px);    
+}
+.share-btn>*{
+    background: none !important;
+    color: #777 !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.MuiGrid-spacing-xs-3 > .MuiGrid-item{
+    padding: 12px 4px 12px 4px !important;
+}
+.MuiGrid-item>.MuiPaper-root>.MuiBox-root{
+    padding-left: 0px;
+}
 .share-btn > a {
     padding: 0.4px 1px;
     display: flex;
 }   
+.notification-container-copied{
+    zoom: 0.9;
+}
 }

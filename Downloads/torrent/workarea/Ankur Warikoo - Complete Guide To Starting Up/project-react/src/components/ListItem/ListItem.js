@@ -10,12 +10,16 @@ import Facebook from "@material-ui/icons/Facebook";
 import Twitter from "@material-ui/icons/Twitter";
 import Email from "@material-ui/icons/Mail";
 import Whatsapp from "@material-ui/icons/WhatsApp";
-import DownloadIcon from '@material-ui/icons/GetApp';
+import DownloadIcon from "@material-ui/icons/GetApp";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ShareIcon from "@material-ui/icons/ShareOutlined";
 import PauseCircleOutlineRoundedIcon from "@material-ui/icons/PauseCircleOutlineRounded";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
+import LinkIcon from "@material-ui/icons/Link";
 import parse from "html-react-parser";
+import ReactTooltip from "react-tooltip";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { Image } from "../../components";
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     cursor: "pointer",
-    width:"100%",
+    width: "100%",
     [theme.breakpoints.down("sm")]: {
       fontSize: 14,
     },
@@ -140,6 +144,15 @@ export default function ListItem({ data, currentPlayingPosition }) {
   const { favorite } = useSelector((state) => state.player);
   const [present, setPresent] = useState(false);
   const [display, setDisplay] = useState(true);
+  const notify = () => toast.success('Link has been copied', {
+    position: "bottom-left",
+    autoClose: 2000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    });
   useEffect(() => {
     if (favorite.find((item) => item.id === id)) {
       setPresent(true);
@@ -210,14 +223,15 @@ export default function ListItem({ data, currentPlayingPosition }) {
               style={isDownloaded ? { color: "green" } : { color: "gray" }}
             />
           </IconButton>
-          <IconButton  size="small">
-          <a className="download-icon-container"  
-          href={'data:audio/mp3,'+link}
-    target="_blank"
-    download={name}
-          >
-          <DownloadIcon />
-          </a>
+          <IconButton size="small">
+            <a
+              className="download-icon-container"
+              href={"data:audio/mp3," + link}
+              target="_blank"
+              download={name}
+            >
+              <DownloadIcon />
+            </a>
           </IconButton>
           <IconButton onClick={handleFavorite} size="small">
             <FavoriteBorderIcon
@@ -234,32 +248,53 @@ export default function ListItem({ data, currentPlayingPosition }) {
           </IconButton>
           <div>
             <div
-              style={display ? { width:"0" } : { width:"100%" }}
+              style={display ? { width: "0" } : { width: "100%" }}
               className="share-btn"
             >
+              <IconButton
+                data-tip="Copy the link"
+                className="btn-link"
+                onClick={(e) => {
+                  notify()
+                  e.target.style.color = "rgb(29,161,245)";
+                  setTimeout(() => {
+                    e.target.style.color = "#777";
+                  }, 2000);
+                  navigator.clipboard.writeText(link);
+                }}
+                size="small"
+              >
+                <ReactTooltip place="top" type="dark" effect="float" />
+                <LinkIcon />
+              </IconButton>
+
               <a
+                data-tip="Share on Twitter"
                 class="btn-twitter"
-                href={"https://twitter.com/share?url="+ link}
+                href={"https://twitter.com/share?url=" + link}
                 onClick={(e) => {
                   javascript: window.open(
-                    "https://twitter.com/share?url="+ link,
+                    "https://twitter.com/share?url=" +
+                      link +
+                      "&text=Assalamo alaykum. What do you think of this audio?",
                     "Twitter",
                     "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600"
-                  
                   );
                   return false;
                 }}
                 target="_blank"
                 title="Share on Twitter"
               >
-                <Twitter/>
+                <ReactTooltip place="top" type="dark" effect="float" />
+                <Twitter />
               </a>
               <a
+                data-tip="Share on Facebook"
                 class="btn-facebook"
-                href={"https://www.facebook.com/sharer/sharer.php?u="+link}
+                href={"https://www.facebook.com/sharer/sharer.php?u=" + link}
                 onClick={(e) => {
                   javascript: window.open(
-                    "https://www.facebook.com/sharer/sharer.php?u="+link,
+                    "https://www.facebook.com/sharer/sharer.php?u=" + link,
                     "",
                     "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600"
                   );
@@ -268,14 +303,20 @@ export default function ListItem({ data, currentPlayingPosition }) {
                 target="_blank"
                 title="Share on Facebook"
               >
-                <Facebook/>
+                <ReactTooltip place="top" type="dark" effect="float" />
+                <Facebook />
               </a>
               <a
+                data-tip="Share on Whatsapp"
                 class="btn-whatsapp"
-                href={"https://api.whatsapp.com/send?text=share%20description%20read%0D%0A"+link}
+                href={
+                  "https://api.whatsapp.com/send?text=Assalamo alaykum. What do you think of this audio?" +
+                  link
+                }
                 onClick={(e) => {
                   javascript: window.open(
-                    "https://api.whatsapp.com/send?text=share%20description%20read%0D%0A"+link,
+                    "https://api.whatsapp.com/send?text=Assalamo alaykum. What do you think of this audio? " +
+                      link,
                     "",
                     "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600"
                   );
@@ -284,19 +325,28 @@ export default function ListItem({ data, currentPlayingPosition }) {
                 target="_blank"
                 title="Share on Whatsapp"
               >
-                <Whatsapp/>
+                <ReactTooltip place="top" type="dark" effect="float" />
+                <Whatsapp />
               </a>
 
               <a
+                data-tip="Share on Email"
                 className="btn-email"
-                href={"mailto:?subject=I wanted you to see this audio&amp;body=Check out this ."+link}
-                title="Share by Email">
-              <Email/>
+                href={
+                  "mailto:?subject=Assalamo alaykum. What do you think of this audio?&body=More enlightening signs at " +
+                  link
+                }
+                title="Share by Email"
+              >
+                <ReactTooltip place="top" type="dark" effect="float" />
+
+                <Email />
               </a>
             </div>
           </div>
         </Box>
       </Box>
+<ToastContainer className="notification-container-copied"/>
     </Paper>
   );
 }
